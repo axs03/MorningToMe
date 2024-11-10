@@ -1,7 +1,6 @@
 from datetime import datetime
 from geopy.geocoders import Nominatim
 import requests
-import keys
 import pytz
 import math
 
