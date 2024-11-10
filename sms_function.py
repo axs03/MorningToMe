@@ -1,31 +1,23 @@
-from etext import send_sms_via_email
-import misc_funcs
-from misc_funcs import WeatherFunctions
-import keys
+from dotenv import load_dotenv
+import os
+import smtplib
+from email.message import EmailMessage
 
-sender_credentials = (keys.email, keys.email_passwd)
+load_dotenv()
 
-subject = "Daily Update"
+sender_email, to_email = os.getenv("email"), os.getenv("to_email")
+sender_pwd = os.getenv("email_passwd")
 
+subject, mailtext = "", ""
 
-def update_message(time_dict):
-    message = ("Good morning! Lets have a good day today!"
-               "\nThe time in India is " + (time_dict["india_time"]) +
-               "\nThe Current Time in your timezone is " + (time_dict["curr_time"]) +
-               "\nHere is the weather:"
-               # "\n + Bring Umbrella? : " + str(WeatherFunctions.bringUmbrella(misc_funcs.weather)) +
-               "\n + Current  : " + str(misc_funcs.weather['temp']) +
-               "\n + High : " + str(misc_funcs.weather['high']) +
-               "\n + Low : " + str(misc_funcs.weather['low']) +
-               "\nHere are some things we have to do today:"
-               "\n - ")
+msg=EmailMessage()
+msg['Subject'] = subject
+msg['From'] = sender_email
+msg['To'] = to_email  
+msg.set_content(mailtext)
 
-    # message = "This is a short message and the time is " + time_dict["curr_time"]
-    # return message
-    print(message)
-
-
-def send_sms():
-    send_sms_via_email(
-        keys.my_number, update_message(), keys.provider, sender_credentials, subject
-    )
+def sendText() -> None:
+    with smtplib.SMTP('smtp.gmail.com', 587) as server: 
+        server.starttls()
+        server.login(sender_email, sender_pwd)
+        server.send_message(msg)
