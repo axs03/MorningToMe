@@ -14,4 +14,4 @@ class TimezoneFunctions:
         return tz_dict
     
     def getCurrentDay() -> str:
-        return datetime.now().strftime("%A")
+        return datetime.now().strftime("%A, %d %B")
