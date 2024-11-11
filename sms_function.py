@@ -1,23 +1,30 @@
-from dotenv import load_dotenv
-import os
 import smtplib
 from email.message import EmailMessage
 
-load_dotenv()
 
-sender_email, to_email = os.getenv("email"), os.getenv("to_email")
-sender_pwd = os.getenv("email_passwd")
+class SMS():
+    def __init__(self, send_from: str, sender_pwd: str, send_to: str, subject="", body=""):
+        self.send_from = send_from
+        self.send_to = send_to
+        self.sender_pwd = sender_pwd
+        self.subject = subject
+        self.body = body
 
-subject, mailtext = "", ""
 
-msg=EmailMessage()
-msg['Subject'] = subject
-msg['From'] = sender_email
-msg['To'] = to_email  
-msg.set_content(mailtext)
+    def newSMS(self) -> bool:
+        msg = EmailMessage()
+        msg['Subject'] = self.subject
+        msg['From'] = self.send_from
+        msg['To'] = self.send_to
+        msg.set_content(self.body)
 
-def sendText() -> None:
-    with smtplib.SMTP('smtp.gmail.com', 587) as server: 
-        server.starttls()
-        server.login(sender_email, sender_pwd)
-        server.send_message(msg)
+        try:
+            with smtplib.SMTP('smtp.gmail.com', 587) as server: 
+                server.starttls()
+                server.login(self.send_from, self.sender_pwd)
+                server.send_message(msg)
+            return True
+
+        except smtplib.SMTPException as e:
+            print("Text Sending has failed: {e}")
+            return False
