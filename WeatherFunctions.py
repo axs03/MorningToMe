@@ -1,32 +1,36 @@
 from geopy.geocoders import Nominatim
 import requests
 import math
+from dotenv import load_dotenv
 
 
 class WeatherFunctions():
     def __init__(self):
-    # used by geopy
-        self.locator = Nominatim(user_agent="GetLoc")
+        load_dotenv()
 
-    def kelvinToCelsius(kelvin: float):
+        # used by geopy
+        self.locator = Nominatim(user_agent="GetLoc")
+        self.coord_url = "https://api.openweathermap.org/data/2.5/weather?lat={latitude}&lon={longitude}&appid={openWeatherAPI}&units=metric"
+
+    def kelvinToCelsius(kelvin: float) -> float:
         return kelvin - 273.15
 
-    def kelvinToFahrenheit(kelvin: float):
+    def kelvinToFahrenheit(kelvin: float) -> float:
         return (kelvin - 273.15) * (9 / 5) + 32
 
 
-    def CtoF(celsius: float):
+    def CtoF(celsius: float) -> float:
         return math.ceil((celsius * 9 / 5) + 32)
 
 
-    def getCurrentLocation(self,location):
+    def getCurrentLocation(self,location) -> dict:
         getLocation = self.locator.geocode(location)
         return {"long": getLocation.latitude, "lat": getLocation.longitude}
 
 
-    def getWeather():
+    def getWeather(self):
         # extracting json from openWeather
-        dataframe = requests.get(keys.coord_url).json() # fix this
+        dataframe = requests.get(self.coord_url).json()
         curr_weather = dataframe['weather'][0]['main']
         curr_temp = WeatherFunctions.CtoF(dataframe['main']['temp'])
         curr_low = WeatherFunctions.CtoF(dataframe['main']['temp_min'])
@@ -39,6 +43,5 @@ class WeatherFunctions():
 
 
     def bringUmbrella(weather_dictionary):
-        if weather_dictionary["weather"] == 'Rain':
-            return "Bring it"
-        return "Don't Need it"
+        return "Bring It "if weather_dictionary["weather"] == 'Rain' else "Don't Need It"
+        

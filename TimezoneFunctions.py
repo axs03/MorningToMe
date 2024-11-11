@@ -1,17 +1,17 @@
 from datetime import datetime
-import pytz
+from pytz import all_timezones, timezone
 
 
 class TimezoneFunctions:
-    zones = pytz.all_timezones
-
-    @staticmethod
-    def convertTimeZone(zone_name):
-        india_tz = pytz.timezone("Asia/Calcutta")
+    def convertTimeZone(zone_name: str) -> dict:
+        india_tz = timezone("Asia/Calcutta")
         india_time = datetime.now(india_tz)
 
-        curr_zone = pytz.timezone(zone_name)
+        curr_zone = timezone(zone_name)
         time_in_zone = datetime.now(curr_zone)
 
         tz_dict = {"curr_time": time_in_zone.strftime("%H:%M"), "india_time": india_time.strftime("%H:%M")}
         return tz_dict
+    
+    def getCurrentDay() -> str:
+        return datetime.now().strftime("%A, %d %B")
