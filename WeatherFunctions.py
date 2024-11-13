@@ -39,8 +39,10 @@ class WeatherFunctions():
 
     def getWeather(self):
         # setting the latitude and longitude for the reques to make
-        self.__setCurrentLocation(self.getCurrentLocation(os.getenv("curr_city")))
+        # self.__setCurrentLocation(self.getCurrentLocation(os.getenv("curr_city")))
+        self.__setCurrentLocation(self.getCurrentLocation("New_York"))
         self.coord_url = "https://api.openweathermap.org/data/2.5/weather?lat={self.latitude}&lon={self.longitude}&appid={self.openWeatherAPI}&units=metric"
+        print(self.coord_url)
 
         # extracting json from openWeather
         dataframe = requests.get(self.coord_url).json()

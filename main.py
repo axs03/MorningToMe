@@ -23,7 +23,6 @@ if __name__ == "__main__":
     weather = weather_dict["weather"]
     need_umbrella = weather_functions.bringUmbrella()
 
-
     subject = """ {day} Report """
 
     sms_body = """
