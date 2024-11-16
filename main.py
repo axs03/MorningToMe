@@ -21,7 +21,7 @@ if __name__ == "__main__":
     weather_dict = weather_functions.getWeather()
     temperature = weather_dict["temp"]
     weather = weather_dict["weather"]
-    need_umbrella = weather_functions.bringUmbrella()
+    need_umbrella = weather_functions.bringUmbrella(weather_dict)
 
     subject = """ {day} Report """
 
