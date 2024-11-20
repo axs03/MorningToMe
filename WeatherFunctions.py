@@ -52,7 +52,6 @@ class WeatherFunctions():
 
         # extracting json from openWeather
         dataframe = requests.get(self.coord_url).json()
-        print(dataframe)
         curr_weather = dataframe['weather'][0]['main']
         curr_temp = WeatherFunctions.__CtoF(dataframe['main']['temp'])
         curr_low = WeatherFunctions.__CtoF(dataframe['main']['temp_min'])
@@ -64,6 +63,6 @@ class WeatherFunctions():
         return weather_dict
 
 
-    def bringUmbrella(weather_dictionary):
-        return "bring an Umbrella" if weather_dictionary["weather"][0]['description'] == 'Rain' else "don't bring an Umbrella"
+    def bringUmbrella(self, weather_dictionary: dict) -> str:
+        return "bring an Umbrella" if weather_dictionary["weather"] == 'Rain' else "don't bring an Umbrella"
         

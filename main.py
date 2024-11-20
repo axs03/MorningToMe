@@ -20,15 +20,16 @@ if __name__ == "__main__":
     # Stuff for the Weather and Rain Probability
     weather_dict = weather_functions.getWeather()
     temperature = weather_dict["temp"]
-    weather = weather_dict["weather"]
+
     need_umbrella = weather_functions.bringUmbrella(weather_dict)
+    weather= weather_dict["weather"]
 
-    subject = """ {day} Report """
+    subject = f""" {day} Report """
 
-    sms_body = """
+    sms_body = f"""
                 The current local time is {local_time}. \n 
                 The current time in India is {india_time}. \n
-                The current tempersture locally is {temperature}. \n
+                The current temperature locally is {temperature}. \n
                 The current weather locally is {weather}. \n
                 So, {need_umbrella}.
     """
