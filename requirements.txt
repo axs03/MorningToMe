@@ -2,3 +2,4 @@ python-dotenv
 geopy
 requests
 pytz
+newsapi-python

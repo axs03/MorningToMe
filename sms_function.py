@@ -1,5 +1,6 @@
 import smtplib
 from email.message import EmailMessage
+from ssl import create_default_context
 
 
 class SMS():
@@ -19,12 +20,12 @@ class SMS():
         msg.set_content(self.body)
 
         try:
-            with smtplib.SMTP('smtp.gmail.com', 587) as server: 
+            with smtplib.SMTP('smtp.mail.yahoo.com', 587) as server: 
                 server.starttls()
                 server.login(self.send_from, self.sender_pwd)
                 server.send_message(msg)
             return True
 
         except smtplib.SMTPException as e:
-            print("Text Sending has failed: {e}")
+            print(f"Text Sending has failed: {e}")
             return False
