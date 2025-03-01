@@ -1,8 +1,21 @@
 # MorningToMe
+An autmation script I created aimed to remove the need to look at different applications. Currently, this script grabs the latest news and weather for your current set location.
+## Installation
+To use, clone the repository. Navigate to install folder:
+### Create a python virtual environment. 
+``` python
+python3 -m venv venv
+```
+### Activate the venv
+#### Windows
+``` shell
+venv/Scripts/activate
+```
+#### MacOS
+``` shell
+source venv/bin/activate
+```
 
-An autmation script aimed to remove the need to look at different applications just for basic information.
-
-To use, clone the repository. Nacigate to install folder and create a python virtual environment. Activate the <code>venv</code> and then run <code>pip install -r requirements.txt</code><br>
 After cloning, create a <code>.env</code> file and put in the information required by the API's. <br>
 You will need to create API keys for:
 <ul>
